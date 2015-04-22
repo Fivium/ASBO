@@ -32,7 +32,7 @@ SQL> @snapping_jobs.sql
 
 1. create folder `avo` in apache document root e.g. `mkdir /var/www/html/avo`
 2. place all 'web' files in there
-3. edit `/var/www/html/avo/iconfig/db_lookup.xml`
+3. edit `/var/www/html/avo/config/db_lookup.xml`
   1. enter a user with *dba* role
   2. for enterprise edition leave out `<snaps_table>` and `<use_local_awr_tables>` elements
 4. access using browser
