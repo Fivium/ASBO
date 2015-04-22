@@ -1,6 +1,6 @@
 <?php
 #
-# $Id$
+# $Id: //Infrastructure/GitHub/Database/avo/web/inc/db.class.php#3 $
 #
 class db{
     public  $connection_error;
@@ -246,7 +246,7 @@ class db{
     #
     function cpu_cores(){
         if( !isset( $this->cpu_cores ) ){
-          $cpu_cores_check = $this->single_rec("select value cpu_cores from v\$osstat where osstat_id = 16");
+          $cpu_cores_check = $this->single_rec("select value cpu_cores from v\$osstat where osstat_id = 0");
           $this->cpu_cores = $cpu_cores_check->CPU_CORES;
         }
     
