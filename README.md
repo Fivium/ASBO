@@ -1,4 +1,4 @@
-# AVO - Activity Viewer for Oracle
+# ASBO - Active Session Breakdown for Oracle
 
 Displays per second breakdown of active database sessions
 
