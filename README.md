@@ -11,7 +11,7 @@ For **ORACLE STANDARD EDITION** (not needed for enterprise edition), need to set
 1. Create the oracle user to hold the snapped data
 ```sql
 SQL> create user dbamgr idenitfied by dbamgr;
-SQL> grant dba to dbamgr;
+SQL> grant dba to dbamgr; -- VERY BAD IDEA -- WILL GET PROPER LIST OF PRIVS SOON!
 ```
 2. Change directory to osse
 3. AS SYS
@@ -30,13 +30,13 @@ SQL> @snapping_jobs.sql
 
 ### On a linux webserver
 
-1. create folder `avo` in apache document root e.g. `mkdir /var/www/html/avo`
+1. create folder `asbo` in apache document root e.g. `mkdir /var/www/html/asbo`
 2. place all 'web' files in there
-3. edit `/var/www/html/avo/config/db_lookup.xml`
+3. edit `/var/www/html/asbo/iconfig/db_lookup.xml`
   1. enter a user with *dba* role
   2. for enterprise edition leave out `<snaps_table>` and `<use_local_awr_tables>` elements
 4. access using browser
-  `<webserver_addr>/avo/db_monitor.php`
+  `<webserver_addr>/asbo/db_monitor.php`
 
 ## Requirements web server
 
