@@ -91,12 +91,12 @@ if($db){
             }
             define( 'SNAPS_TABLE', "$snaps_table" );
             #
-            # Use our own awr tables?
+            # Use our own history tables?
             #
             if ( $db_obj->use_local_awr_tables ){
-                $use_local_awr_tables = TRUE;
+                $use_our_own_history_tables = TRUE;
             }else{
-                $use_local_awr_tables = FALSE;
+                $use_our_own_history_tables = FALSE;
             } 
         }
     }
