@@ -16,8 +16,8 @@ select
 , round(ss.direct_writes_delta/ss.executions_delta)                                            direct_writes_per_exec
 , round((ss.plsexec_time_delta/1000000)/decode(ss.executions_delta,0,1,ss.executions_delta),2) plsql_time_per_exec
 from
-  dba_hist_snapshot s,
-  dba_hist_sqlstat  ss
+  __hist_snapshot__ s,
+  __hist_sqlstat__  ss
 where   
   ss.dbid               = s.dbid and     
   ss.instance_number    = s.instance_number and     
@@ -29,6 +29,8 @@ order by
   s.snap_id desc
 , ss.plan_hash_value
 END_SQL;
+
+include 'subs_for_histoty_tables.php';
 
 $cur = oci_parse( $conn, $sql );
 oci_bind_by_name( $cur, ":sql_id", $_GET['sql_id'] );
