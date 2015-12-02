@@ -8,7 +8,8 @@
 #
 # Get the saved database details
 #
-$db_lookup = simplexml_load_file('conf/db_lookup.xml');
+include 'conf/db_lookup.php';
+$db_lookup = simplexml_load_string($db_look_up_xml);
 #
 # Top container
 #
@@ -20,10 +21,25 @@ u::start_tag('form','action="'.$form_name.'" style="display:inline"');
 
 $values=array();
 $labels=array();
-$values[]=array('Choose','Choose');
 foreach($db_lookup as $key0 => $db_obj){
-    $values[]=array($db_obj['name'],$db_obj->display_name);
+    $values[]=array((string) $db_obj['name'],(string) $db_obj->display_name);
 }
+#
+# Sort
+#
+foreach ($values as $key => $row) {
+    $db_name[$key]      = $row[0];
+    $display_name[$key] = strtolower($row[1]);
+}
+#$display_name_lower = array_map('strtolower', $display_name);
+array_multisort($display_name, SORT_ASC, SORT_STRING, $values);
+#
+# Add choose
+#
+$choose_str='Choose';
+array_unshift($values,array($choose_str,$choose_str));
+if( !$db ) $db = $choose_str;
+
 u::select_list('db',$values,$db);
 u::end_tag('form');
 
@@ -33,27 +49,27 @@ u::end_tag('form');
 u::start_tag('form', 'action="show_page.php" style="display:inline"');
 u::tag('input','type="hidden" name="db" value="'.$db.'"');
 $values=array();
-$values[]=array( 'db_monitor.php'   , 'DB Monitoring'     );
-$values[]=array( 'blocking_tree.php', 'Blocking Sessions' );
-$values[]=array( 'db_checks.php'    , 'DB Checks'         );
+$values[]=array( 'db_monitor.php'      , 'DB Monitoring'     );
+$values[]=array( 'blocking_tree.php'   , 'Blocking Sessions' );
+$values[]=array( 'db_checks.php?html=1', 'DB Checks'         );
 
-$yest    = strtotime("yesterday");
-$start   = date('o_m_d__09',$yest);
-$end     = date('o_m_d__17',$yest);
-$awr_url = "awr.php?start=$start&end=$end&order_by_id=";
+$yest  = strtotime("yesterday");
+$start = date('o_m_d__09',$yest);
+$end   = date('o_m_d__17',$yest);
+$top_sql_report_url = "top_sql_report.php?start=$start&end=$end&order_by_id=";
 
-$values[]=array( $awr_url.'1'                                            ,'Top SQL Report');
+$values[]=array( $top_sql_report_url.'1', 'Top SQL Report' );
+$values[]=array('db_size.php'           , 'Database Size'  );
+$values[]=array('standby_details.php'   , 'Standby Details');
+$values[]=array('db_checks_all_dbs.php?html=1','Checks all DB');
 
 if( u::request_val('full',0) ){
-   $values[]=array('standby_details.php'  ,'Standby Details');
-   $values[]=array('db_checks_all_dbs.php','Checks all DB'  );
-   $values[]=array('db_size.php'          ,'Database Size'  );
-   $values[]=array('undo_monitor.php'     ,'Undo Monitor'   );
+   $values[]=array('undo_monitor.php'            ,'Undo Monitor'   );
 
-   $values[]=array( $awr_url.'2'                                            ,'AWR by disk reads'   );
-   $values[]=array( $awr_url.'3'                                            ,'AWR by exec elapsed' );
-   $values[]=array('run_sql.php[sql_file----longops]'                       ,'Longops'             );
-   $values[]=array('db_sessions.php'                                        ,'Sessions'            );
+   $values[]=array( $top_sql_report_url.'2'          , 'AWR by disk reads'   );
+   $values[]=array( $top_sql_report_url.'3'          , 'AWR by exec elapsed' );
+   $values[]=array('run_sql.php[sql_file----longops]', 'Longops'             );
+   $values[]=array('db_sessions.php'                 , 'Sessions'            );
 
    $base_url=
       "system_load.php?hide=on&snaps_table=$snaps_table&db=$db&sql_mins_hist=2&mins_hist=2&table_styles=1&div_only=1"
