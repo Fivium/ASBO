@@ -50,6 +50,12 @@ define('C_NONE','none');
 #
 $chart_width     = u::request_val( 'width'    , 300  );
 $chart_max_width = u::request_val( 'max_width', 2000 );
+#
+# Get the database connection details
+# - This sets var $db_look_up_xml
+# - If you move this file then this is the only update needed
+#
+include 'conf/db_lookup.php';
 
 if( $chart_max_width < $chart_width ) $chart_max_width = $chart_width;
 
@@ -75,7 +81,7 @@ if($choose_db){
 # What db?
 #
 if($db){
-    $db_lookup = simplexml_load_file('conf/db_lookup.xml');
+    $db_lookup = simplexml_load_string($db_look_up_xml);
     foreach($db_lookup as $key0 => $db_obj){
         if( $db_obj['name'] == $db ){
             $user        = $db_obj->user;
