@@ -2,8 +2,6 @@
 
 Displays per second breakdown of active database sessions
 
-**FOR DEMO/DEVELOPMENT ONLY - NOT PEN TESTED - PASSWORDS STORED IN PLAIN TEXT**
-
 ## Use
 
 For **ORACLE STANDARD EDITION** (not needed for enterprise edition), need to setup some snapping, Oracle Snapper for Standard Edition (OSSE)
