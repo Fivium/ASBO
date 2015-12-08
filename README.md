@@ -2,6 +2,10 @@
 
 Displays per second breakdown of active database sessions
 
+Demo, running on a overloaded single core server the 2 databases
+
+http://82.165.37.136/oav/db_monitor.php?db=12c
+
 ## Use
 
 For **ORACLE STANDARD EDITION** (not needed for enterprise edition), need to setup some snapping, Oracle Snapper for Standard Edition (OSSE)
