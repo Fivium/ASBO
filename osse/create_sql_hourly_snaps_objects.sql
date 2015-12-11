@@ -59,13 +59,13 @@ ALTER TABLE dbamgr.hist_sqltext ADD CONSTRAINT hist_sqltext_pk PRIMARY KEY (sql_
 -- Snap sys stat
 --
 CREATE TABLE dbamgr.hist_sysmetric_summary(
-  dbid                  NUMBER
-, instance_number       NUMBER
-, snap_id               NUMBER
-, metric_id             NUMBER
-, metric_unit           VARCHAR2(100)
-, min_val               NUMBER
-, max_val               NUMBER
+  metric_id    NUMBER
+, metric_name  VARCHAR2(256)
+, metric_unit  VARCHAR2(64)
+, begin_time   DATE
+, maxval       NUMBER
+, average      NUMBER
+, snap_id      NUMBER
 )
 TABLESPACE tbsdata
 /
