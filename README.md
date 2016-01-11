@@ -16,12 +16,12 @@ For **ORACLE STANDARD EDITION** (not needed for enterprise edition), need to set
 1. Create the oracle user to hold the snapped data
 ```sql
 SQL> create user dbamgr idenitfied by dbamgr;
-SQL> grant dba to dbamgr; -- VERY BAD IDEA -- WILL GET PROPER LIST OF PRIVS SOON!
 ```
 2. Change directory to osse
 3. AS SYS
 ```sql
 SQL> @create_active_session_details_view.sql
+SQL> @sys_grants.sql
 ```
 4. AS DBAMGR
 ```sql
