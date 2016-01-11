@@ -1,13 +1,16 @@
 --
--- $Id: //Infrastructure/GitHub/Database/avo/osse/create_active_session_details_view.sql#1 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/osse/create_active_session_details_view.sql#3 $
 --
 -- T Dale 2012
 --
 -- Snaping view for Oracle standard edition
 
+
+
 --
 -- Needs to be run as sys
 --
+
 CREATE OR REPLACE VIEW sys.active_session_details
 AS
 SELECT
@@ -23,7 +26,7 @@ SELECT
     ELSE NULL END wait_class 
 FROM
     x$ksuse s
-where
+WHERE
     s.indx != ( SELECT DISTINCT sid FROM v$mystat WHERE ROWNUM < 2 ) -- not me
 AND bitand(s.ksspaflg,1)!=0
 AND bitand(s.ksuseflg,1)!=0
@@ -33,9 +36,3 @@ AND
   OR
   s.ksuseopc NOT IN (  select event# from v$event_name where wait_class='Idle' ) -- not idle
 );
-GRANT SELECT  ON sys.active_session_details TO dbamgr;
-GRANT SELECT  ON v_$database                TO dbamgr;
-GRANT SELECT  ON v_$sqlarea                 TO dbamgr;
-GRANT SELECT  ON v_$event_name              TO dbamgr;
-GRANT SELECT  ON v_$session                 TO dbamgr;
-GRANT EXECUTE ON dbms_lock                  TO dbamgr;
