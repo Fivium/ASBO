@@ -2,6 +2,8 @@
 -- Grants on sys objects 
 -- $Id: //Infrastructure/GitHub/Database/asbo/osse/sys_grants.sql#1 $
 --
+GRANT CONNECT,RESOURCE TO DBAMGR;
+ALTER USER DBAMGR QUOTA UNLIMITED ON USERS;
 GRANT SELECT ON SYS.V_$LOG to DBAMGR;
 GRANT SELECT ON SYS.V_$SESSION to DBAMGR;
 GRANT SELECT ON SYS.V_$MYSTAT to DBAMGR;
