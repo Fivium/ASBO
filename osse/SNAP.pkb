@@ -40,7 +40,7 @@ AS
           , event
           , sql_id
           , session_id
-          , NULL
+          , user_id
           , NULL
           , program
           , module
