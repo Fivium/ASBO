@@ -20,7 +20,7 @@ CREATE TABLE dbamgr.session_snaps(
   EVENT                         VARCHAR2(64 BYTE),
   SQL_ID                        VARCHAR2(64 BYTE),
   SESSION_ID                    VARCHAR2(64 BYTE),
-  USER#                         VARCHAR2(64 BYTE),
+  USER_ID                       VARCHAR2(64 BYTE),
   USERNAME                      VARCHAR2(128 BYTE),
   PROGRAM                       VARCHAR2(64 BYTE),
   MODULE                        VARCHAR2(64 BYTE),
@@ -50,8 +50,9 @@ CREATE TABLE dbamgr.session_snaps(
   P3TEXT                        VARCHAR2(64 BYTE),
   P3RAW                         RAW(8)	
 )
+TABLESPACE users
 /
-CREATE INDEX dbamgr.session_snaps_idx1 ON dbamgr.session_snaps(sample_time)
+CREATE INDEX dbamgr.session_snaps_idx1 ON dbamgr.session_snaps(sample_time) TABLESPACE users
 /
-CREATE TABLE dbamgr.session_snaps_hist AS SELECT * FROM dbamgr.session_snaps
+CREATE TABLE dbamgr.session_snaps_hist AS SELECT * FROM dbamgr.session_snaps TABLESPACE users
 /
