@@ -95,7 +95,7 @@ AS
         , sh.event
         , sh.sql_id
         , sh.session_id
-        , sh.user#
+        , sh.user_id
         , sh.program
         , sh.module
         , sh.wait_class#
