@@ -1,5 +1,5 @@
 --
--- $Id: //Infrastructure/GitHub/Database/avo/web/sql/create_outline.sql#2 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/web/sql/create_outline.sql#2 $
 -- 
 -- Create an outline for this sql
 --
@@ -16,7 +16,6 @@ BEGIN
   -- Turn on creation
   --
   p('Enabling outline creation and use - need to issue again after instance bounce ');
-  EXECUTE IMMEDIATE 'ALTER SYSTEM SET create_stored_outlines=TRUE';
   EXECUTE IMMEDIATE 'ALTER SYSTEM SET query_rewrite_enabled=TRUE';
   EXECUTE IMMEDIATE 'ALTER SYSTEM SET use_stored_outlines=DEFAULT';
   --
@@ -36,6 +35,7 @@ BEGIN
     child_number = l_child_no;
 
   p('Creating outline for : ' || l_sql_id || ', Child : ' || l_child_no);
+  EXECUTE IMMEDIATE 'ALTER SESSION SET create_stored_outlines=TRUE';
   --
   -- Create 
   --
@@ -43,6 +43,7 @@ BEGIN
     hash_value    => l_sql_hash
   , child_number  => l_child_no
   );  
+  EXECUTE IMMEDIATE 'ALTER SESSION SET create_stored_outlines=FALSE';
   p('Outline created');
   --
   -- Display outline details
