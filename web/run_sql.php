@@ -16,6 +16,13 @@ $param3      = u::request_val( 'param3'      );
 $param4      = u::request_val( 'param4'      );
 $dbms_output = u::request_val( 'dbms_output' );
 
+u::p("<!--");
+for($i=1;$i<=4;$i++){
+    $param_name="param$i";
+    u::p("Param$i : ".$$param_name);
+}
+u::p("-->");
+
 p("<title>Run : $sql_file</title>");
 
 $sql = file_get_contents( "./sql/".$sql_file.".sql" );
@@ -28,12 +35,26 @@ if( $schema = u::request_val( 'schema' ) ){
 }
 
 #p($sql);
+function var_set_to_something($var){
+   
+     if( $var or $var === '0' or $var === 0 ){
+         return 1;
+     }else{
+         return 0;
+     }     
+}
 
 $binds   = '';
-if( $param1   ) $binds[] = array( ":param1"  , $param1   );
-if( $param2   ) $binds[] = array( ":param2"  , $param2   );
-if( $param3   ) $binds[] = array( ":param3"  , $param3   );
-if( $param4   ) $binds[] = array( ":param4"  , $param4   );
+if( var_set_to_something($param1) ) $binds[] = array( ":param1"  , $param1   );
+if( var_set_to_something($param2) ) $binds[] = array( ":param2"  , $param2   );
+if( var_set_to_something($param3) ) $binds[] = array( ":param3"  , $param3   );
+if( var_set_to_something($param4) ) $binds[] = array( ":param4"  , $param4   );
+
+u::p("<!--");
+foreach($binds as $bind_pair){
+    u::p($bind_pair[0].' : '.$bind_pair[1]);
+}
+u::p("-->");
 
 if( $dbms_output ) $db_obj->dbms_output_on();
 
