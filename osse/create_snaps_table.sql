@@ -54,5 +54,5 @@ TABLESPACE users
 /
 CREATE INDEX dbamgr.session_snaps_idx1 ON dbamgr.session_snaps(sample_time) TABLESPACE users
 /
-CREATE TABLE dbamgr.session_snaps_hist AS SELECT * FROM dbamgr.session_snaps TABLESPACE users
+CREATE TABLE dbamgr.session_snaps_hist TABLESPACE users AS SELECT * FROM dbamgr.session_snaps 
 /
