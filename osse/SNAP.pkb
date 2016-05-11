@@ -40,7 +40,7 @@ AS
           , event
           , sql_id
           , session_id
-          , user_id
+          , NULL
           , NULL
           , program
           , module
@@ -85,7 +85,7 @@ AS
       MERGE INTO
         dbamgr.session_snaps_hist sh
       USING
-        (select * from dbamgr.SESSION_SNAPS WHERE sample_time > SYSDATE - 10/(24*60)  ) ss ON (sh.sample_time=ss.sample_time AND sh.session_id=ss.session_id)
+        (SELECT * FROM dbamgr.session_snaps WHERE sample_time > SYSDATE - 10/(24*60)  ) ss ON (sh.sample_time=ss.sample_time AND sh.session_id=ss.session_id)
       WHEN NOT MATCHED THEN
         INSERT (
           sh.sample_time
@@ -129,7 +129,7 @@ AS
         , ss.event
         , ss.sql_id
         , ss.session_id
-        , ss.user#
+        , ss.user_id
         , ss.program
         , ss.module
         , ss.wait_class#
