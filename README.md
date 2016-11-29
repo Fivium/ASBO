@@ -15,7 +15,7 @@ For **ORACLE STANDARD EDITION** (not needed for enterprise edition), need to set
 
 1. Create the oracle user to hold the snapped data
 ```sql
-SQL> create user dbamgr idenitfied by dbamgr;
+SQL> create user dbamgr identified by dbamgr;
 ```
 2. Change directory to osse
 3. AS SYS
