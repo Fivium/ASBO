@@ -16,7 +16,7 @@ AS
   WHERE
     sample_time > SYSDATE - :sql_mins_hist/(24*60) AND
     sql_id IS NOT NULL AND
-    session_type = NVL( :session_type, session_type )
+    ( ash.session_type = :session_type OR :session_type IS NULL )
   GROUP BY
     sql_id
   ORDER BY
@@ -36,7 +36,7 @@ AS
   WHERE
     sample_time > sysdate - :sql_mins_hist/(24*60) and
     sql_id is not null and
-    session_type = nvl( :session_type, session_type )
+    ( ash.session_type = :session_type OR :session_type IS NULL )
   GROUP BY
     sql_id
   , session_state
