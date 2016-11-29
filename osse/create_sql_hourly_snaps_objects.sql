@@ -11,7 +11,7 @@ CREATE TABLE dbamgr.snap_details
 , begin_interval_time DATE
 , end_interval_time   DATE
 )
-TABLESPACE tbsdata
+TABLESPACE users
 /
 ALTER TABLE dbamgr.snap_details ADD CONSTRAINT snap_details_pk PRIMARY KEY ( snap_id )
 /
@@ -39,7 +39,7 @@ CREATE TABLE dbamgr.hist_sqlstat
 , direct_writes_total   NUMBER
 , plsexec_time_delta    NUMBER
 , plsexec_time_total    NUMBER
-) TABLESPACE tbsdata
+) TABLESPACE users
 /
 ALTER TABLE dbamgr.hist_sqlstat ADD CONSTRAINT hist_sqlstat_pk PRIMARY KEY (snap_id,sql_id)
 /
@@ -67,5 +67,5 @@ CREATE TABLE dbamgr.hist_sysmetric_summary(
 , average      NUMBER
 , snap_id      NUMBER
 )
-TABLESPACE tbsdata
+TABLESPACE users
 /
