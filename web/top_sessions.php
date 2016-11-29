@@ -13,7 +13,7 @@ AS(
   FROM
     $snaps_table snaps
   WHERE
-    snaps.session_type = NVL( :session_type, snaps.session_type ) AND
+    ( session_type = :session_type OR :session_type IS NULL ) AND
     snaps.sample_time  > SYSDATE - :sql_mins_hist/(24*60)
 )
 , busy_count
@@ -30,7 +30,7 @@ AS
          session_history_sample s
     JOIN dba_users            users ON users.user_id = s.user_id
   WHERE
-    s.session_type = NVL( :session_type, s.session_type ) AND
+    ( s.session_type = :session_type OR :session_type IS NULL ) AND
     s.sample_time  > SYSDATE - :sql_mins_hist/(24*60)
   GROUP BY
     s.session_id
