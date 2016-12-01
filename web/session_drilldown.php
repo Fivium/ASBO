@@ -9,7 +9,7 @@ include 'start.php';
 $sid  = u::request_val('sid');
 $sql  = 'select s.sid, s.serial# serial,';
 $sql .= "'kill -9 ' || p.spid kill_os" ;
-$sql .= ' from v$session s join v$process p on s.paddr=p.addr';
+$sql .= ' from v$session s left outer join v$process p on s.paddr=p.addr';
 $sql .= ' where s.sid = :sid';
 
 $rec = $db_obj->single_rec($sql,array( array( ":sid", $sid ) ));
