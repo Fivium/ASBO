@@ -16,8 +16,11 @@ BEGIN
   -- Turn on creation
   --
   p('Enabling outline creation and use - need to issue again after instance bounce ');
-  EXECUTE IMMEDIATE 'ALTER SYSTEM SET query_rewrite_enabled=TRUE';
-  EXECUTE IMMEDIATE 'ALTER SYSTEM SET use_stored_outlines=DEFAULT';
+  p('you need to execute as priv user : ALTER SYSTEM SET query_rewrite_enabled=TRUE');
+  p('you need to execute as priv user : ALTER SYSTEM SET use_stored_outlines=DEFAULT');
+  
+  EXECUTE IMMEDIATE 'ALTER SESSION SET query_rewrite_enabled=TRUE';
+  EXECUTE IMMEDIATE 'ALTER SESSION SET use_stored_outlines=DEFAULT';
   --
   -- Get the sql hash
   --
