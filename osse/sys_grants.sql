@@ -34,7 +34,7 @@ GRANT SELECT ON dba_segments TO DBAMGR;
 GRANT SELECT ON dba_lobs TO DBAMGR;
 GRANT SELECT ON dba_indexes TO DBAMGR;
 GRANT SELECT ON SYS.V_$SQL_PLAN To dbamgr;
-GRANT SELECT ON sys.dba_objects TO dbamgr
+GRANT SELECT ON sys.dba_objects TO dbamgr;
 GRANT EXECUTE ON DBMS_OUTLN TO dbamgr;
 GRANT EXECUTE ON SYS.outln_pkg TO dbamgr;
 GRANT EXECUTE ON sys.outln_edit_pkg TO dbamgr;
