@@ -8,8 +8,8 @@
 --
 -- Active session snaps table
 --
-DROP TABLE dbamgr.session_snaps
-/
+--DROP TABLE dbamgr.session_snaps
+--/
 CREATE TABLE dbamgr.session_snaps( 
   DBID                          NUMBER,
   INSTANCE_NUMBER               NUMBER,
