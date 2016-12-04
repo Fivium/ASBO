@@ -15,9 +15,9 @@ $db_look_up_xml=<<<EOXML
         <snaps_table>SNAPS TABLE IF NOT ACTIVE_SESSION_HISTORY (eg dbamgr.session_snaps)</snaps_table>
         <use_local_awr_tables>TRUE IF NOT ACTIVE_SESSION_HISTORY (eg TRUE)</use_local_awr_tables>
     </db>    
-    <db name="example2)">
+    <db name="example2">
         <display_name>Example DB</display_name>
-        <conn_str>192.168.0.1:1521/xe.oracle.docker)</conn_str>
+        <conn_str>192.168.0.1:1521/xe.oracle.docker</conn_str>
         <user>dbamgr</user>
         <pw>dbamgr</pw>
         <snaps_table>dbamgr.session_snaps</snaps_table>
