@@ -42,3 +42,4 @@ GRANT SELECT ON sys.v_$sql_bind_capture TO dbamgr;
 GRANT SELECT ON sys.v_$sql_cs_selectivity TO dbamgr;
 GRANT SELECT ON sys.v_$sql_cs_statistics TO dbamgr;
 GRANT SELECT ON sys.v_$sql_cs_histogram TO dbamgr;
+GRANT SELECT ON sys.v_$rman_output TO dbamgr;
