@@ -20,16 +20,11 @@ SQL> create user dbamgr identified by dbamgr;
 2. Change directory to osse
 3. AS SYS
 ```sql
-SQL> @create_active_session_details_view.sql
-SQL> @sys_grants.sql
+SQL> @run_as_sys
 ```
 4. AS DBAMGR
 ```sql
-SQL> @create_sql_hourly_snaps_objects.sql
-SQL> @create_snaps_table.sql
-SQL> @SNAP.pks
-SQL> @SNAP.pkb
-SQL> @snapping_jobs.sql
+SQL> @run_as_dbamgr
 ```
 5. Check for errors, and check `dbamgr.session_snaps` being populated
 
