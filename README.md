@@ -29,17 +29,18 @@ SQL> @run_as_dbamgr
 5. Check for errors, and check `dbamgr.session_snaps` being populated
 
 ### Use a docker image webserver with everything installed
-
+`
 docker pull tomdale55/asbo
 docker run --name asbo -d -p 80:80 tomdale55/asbo
-
+`
 connect to the container
-
+`
 docker exec -it asbo bash
-
+`
 the edit, using vim the db_lookup.php
+`
 vim conf/db_lookup.php
-
+`
 ### Instruction bellow to do it yourself
 
 ### On a linux webserver
