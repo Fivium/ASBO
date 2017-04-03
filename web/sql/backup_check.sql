@@ -1,5 +1,5 @@
 --
--- $Id: //Infrastructure/GitHub/Database/avo/web/sql/backup_check.sql#2 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/web/sql/backup_check.sql#5 $
 --
 WITH 
   backup_details
@@ -11,7 +11,7 @@ AS
   , (end_time - start_time) * 3600 * 24     duration_mins
   , status full_backup_status
   , CASE
-      WHEN status != 'COMPLETED' then 'CRITICAL'
+      WHEN status NOT IN ('COMPLETED','RUNNING') THEN 'CRITICAL'
       ELSE 'OK'
     END bk_status
   --, '<a href=rman_progress.php?db='||:db_str||'>Details</a>' rman_details
@@ -28,11 +28,12 @@ SELECT
   bk_start
 , bk_end
 , full_backup_status
-, bk_status
 --, rman_details
-, backup_log
+--, backup_log
 , TO_CHAR(TRUNC(duration_mins/3600),'FM9900')       || 'hr '   ||
   TO_CHAR(TRUNC(MOD(duration_mins,3600)/60),'FM00') || 'mins ' ||
   TO_CHAR(MOD(duration_mins,60),'FM00')             || 'secs'  duration
+, bk_status
 FROM
   backup_details bd
+
