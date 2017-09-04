@@ -192,7 +192,7 @@ class db{
             if( $fmt ) u::p('</tr>');
         }
         oci_free_statement($cur);
-        if( !$rows_fetched and $fmt and $show_no_rows ) u::trtd('No Rows Returned','style="background-color:red;"');
+        if( !$rows_fetched and $fmt and $show_no_rows ) u::trtd('No Rows Returned CRITICAL','style="background-color:red;"');
         if( $fmt ){
             u::p('</table>');
         }else{
