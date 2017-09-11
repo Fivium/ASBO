@@ -1,3 +1,7 @@
+--
+-- Database load generator for demos
+-- $Id: //Infrastructure/GitHub/Database/asbo/osse/db_load.sql#2 $
+--
 SET SERVEROUTPUT ON
 EXEC DBMS_OUTPUT.PUT_LINE('DBA_SOURCE select')
 /
@@ -6,7 +10,6 @@ DECLARE
 BEGIN
   FOR i IN 1..15 LOOP
     SELECT SUM(LENGTH(TEXT)) INTO a FROM dba_source;
-    --DBMS_LOCK.SLEEP(5);
   END LOOP;
 END;
 /
@@ -33,16 +36,7 @@ BEGIN
       job  => l_job_out
     , what => 'declare a number := 1; begin for i in 1..'||l_loop_count||' loop a := ( a + i )/11; end loop; end;'
     );
-/*
-    DBMS_SCHEDULER.CREATE_JOB (
-      job_name   => 'CPU_HOG_'||l_job
-    , job_type   => 'PLSQL_BLOCK'
-    , job_action => l_what
-    , start_date => SYSTIMESTAMP
-    , end_date   => NULL
-    , enabled    => TRUE
-    );
-*/
+
     COMMIT;
 
   END LOOP;
@@ -50,7 +44,6 @@ BEGIN
 END;
 /
 EXEC DBMS_OUTPUT.PUT_LINE('little io writes')
-/
 /
 --
 -- Some little writes
