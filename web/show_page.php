@@ -1,10 +1,10 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#5 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#6 $
 #
 $page = $_GET['page'];
-$page = str_replace('.php', '', $page);
-$page_name = basename($page);
+$page_name_end_pos = strpos($page,'.php');
+$page_name = substr($page,0,$page_name_end_pos);
 
 $allowed_pages = array(
     'active_sessions_details',
@@ -38,7 +38,6 @@ $allowed_pages = array(
     'unstable_sql'
 );
 if( in_array($page_name,$allowed_pages) ){
-
     #
     # Replace the tokens
     #
@@ -46,12 +45,10 @@ if( in_array($page_name,$allowed_pages) ){
     $page = str_replace( '____', '&', $page );
     $page = str_replace( '----', '=', $page );
     $page = str_replace( ']'   , '' , $page );
-
     echo "<!-- \nParsed URL : \n";
     $parsed_url = parse_url($page);
     print_r( $parsed_url );
     echo "\nPage wanted : ".$_SERVER['SERVER_NAME']."/oav/$page \n";
-
     $queryfields = split('[;&]', $parsed_url['query']);
     #
     # Parse in parm
@@ -62,9 +59,8 @@ if( in_array($page_name,$allowed_pages) ){
         $_GET[$item[0]]=$item[1];
     }
     echo "-->\n";
-
     $db = $_GET['db'];
-
-    include $parsed_url['path'].'.php';
+    include $parsed_url['path'];
 }
 ?>
+
