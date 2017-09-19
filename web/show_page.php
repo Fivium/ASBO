@@ -1,6 +1,6 @@
 <?php
 #
-# $Id$
+# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#5 $
 #
 $page = $_GET['page'];
 $page = str_replace('.php', '', $page);
