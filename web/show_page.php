@@ -1,6 +1,6 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#6 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#7 $
 #
 $page = $_GET['page'];
 $page_name_end_pos = strpos($page,'.php');
@@ -60,7 +60,7 @@ if( in_array($page_name,$allowed_pages) ){
     }
     echo "-->\n";
     $db = $_GET['db'];
-    include $parsed_url['path'];
+    include './'.$page_name.'.php';
 }
 ?>
 
