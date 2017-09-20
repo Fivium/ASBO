@@ -1,90 +1,65 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/avo/web/run_sql.php#2 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#7 $
 #
-# Run some sql and do binds if needed
-# T Dale
-#
-include 'start.php';
-#
-# Simple run sql
-#
-$sql_file    = u::request_val( 'sql_file'    );
-$param1      = u::request_val( 'param1'      );
-$param2      = u::request_val( 'param2'      );
-$param3      = u::request_val( 'param3'      );
-$param4      = u::request_val( 'param4'      );
-$dbms_output = u::request_val( 'dbms_output' );
+$page = $_GET['page'];
+$page_name_end_pos = strpos($page,'.php');
+$page_name = substr($page,0,$page_name_end_pos);
 
-$allowed_sql_files = array(
-    'advisor_executions',
-    'create_outline',
-    'last_login_check',
-    'logfile_sizes',
-    'system_stats',
-    'unindexed_fk'
+$allowed_pages = array(
+    'active_sessions_details',
+    'active_sessions_graph',
+    'advisor_output',
+    'blocking_tree',
+    'db_checks_all_dbs',
+    'db_checks',
+    'db_size',
+    'dbsync_log',
+    'kill_session',
+    'locks',
+    'obj_details',
+    'plan_flipping_queries',
+    'rman_log',
+    'run_sql',
+    'session_drilldown',
+    'spm_details',
+    'sql_details',
+    'sql_display_cursor',
+    'sql_hist',
+    'sql_monitor',
+    'sql_plan_management',
+    'standby_details',
+    'system_load',
+    'table_move',
+    'tbs_contents',
+    'top_sessions',
+    'top_sql',
+    'top_sql_report',
+    'unstable_sql'
 );
-
-if(in_array($sql_file,$allowed_sql_files)){
-
-	u::p("<!--");
-	for($i=1;$i<=4;$i++){
-	    $param_name="param$i";
-	    u::p("Param$i : ".$$param_name);
-	}
-	u::p("-->");
-
-	p("<title>Run : $sql_file</title>");
-
-	$sql = file_get_contents( "./sql/".$sql_file.".sql" );
-	#$sql = str_replace( "'", "\'", $sql );
-	#
-	# Schema needed?
-	#
-	if( $schema = u::request_val( 'schema' ) ){
-	    $sql = str_replace( '__SCHEMA__', $schema, $sql );
-	}
-
-	u::p("<!--");
-	p($sql);
-	u::p("-->");
-
-
-	function var_set_to_something($var){
-	   
-	     if( $var or $var === '0' or $var === 0 ){
-	         return 1;
-	     }else{
-	         return 0;
-	     }     
-	}
-
-	$binds   = array();
-	if( var_set_to_something($param1) ) $binds[] = array( ":param1"  , $param1   );
-	if( var_set_to_something($param2) ) $binds[] = array( ":param2"  , $param2   );
-	if( var_set_to_something($param3) ) $binds[] = array( ":param3"  , $param3   );
-	if( var_set_to_something($param4) ) $binds[] = array( ":param4"  , $param4   );
-
-	u::p("<!--");
-	foreach($binds as $bind_pair){
-	    u::p($bind_pair[0].' : '.$bind_pair[1]);
-	}
-	u::p("-->");
-
-	if( $dbms_output ) $db_obj->dbms_output_on();
-
-	$cur = $db_obj->exec_sql( $sql, $binds );
-	#
-	# SQL results or dbms_output
-	#
-	if( $dbms_output ){
-	    $db_obj->get_dbms_output();
-	    oci_free_statement($cur);
-	}else{
-	    $db_obj->html_results( $cur );
-	}
-
-	}
-
-include 'end.php';
+if( in_array($page_name,$allowed_pages) ){
+    #
+    # Replace the tokens
+    #
+    $page = str_replace( '['   , '?', $page );
+    $page = str_replace( '____', '&', $page );
+    $page = str_replace( '----', '=', $page );
+    $page = str_replace( ']'   , '' , $page );
+    echo "<!-- \nParsed URL : \n";
+    $parsed_url = parse_url($page);
+    print_r( $parsed_url );
+    echo "\nPage wanted : ".$_SERVER['SERVER_NAME']."/oav/$page \n";
+    $queryfields = split('[;&]', $parsed_url['query']);
+    #
+    # Parse in parm
+    #
+    foreach( $queryfields as $queryfield ){
+        $item = explode('=', $queryfield);
+        echo "-- Setting http GET varible : ".$item[0]." to ".$item[1]."\n";
+        $_GET[$item[0]]=$item[1];
+    }
+    echo "-->\n";
+    $db = $_GET['db'];
+    include './'.$page_name.'.php';
+}
 ?>
