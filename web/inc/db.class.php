@@ -1,6 +1,6 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/avo/web/inc/db.class.php#3 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/inc/db.class.php#5 $
 #
 class db{
     public  $connection_error;
@@ -117,7 +117,7 @@ class db{
     #
     function exec_catch( $cur ){
         try{
-            oci_execute( $cur );
+            oci_execute( $cur, OCI_DEFAULT );
         }catch(Exception $e){
             ##
             ## Might be something in buffer, so check first
@@ -138,6 +138,103 @@ class db{
         return $rec;
     }
     #
+    # Results as test
+    #
+    function text_results( $cur ){
+        #
+        # Get the data
+        #
+        $results=array();
+        $max_col_widths=array();
+        
+        while ( $rec = oci_fetch_object( $cur ) ){
+            $results[] = $rec;
+        }
+        #
+        # Find the largest value or header for each col
+        #
+        foreach( $results as $rec ){
+            #
+            # Column name check
+            #
+            $col=0;
+            foreach ( $rec as $key => $val ){              
+                $col++;
+                #
+                # New max?
+                #
+                if( strlen($key) > @$max_col_widths[$col] ){
+                    $max_col_widths[$col] =  strlen($key);
+                }
+            }
+
+            #
+            # Row data
+            #
+            $col=0;
+            foreach ( $rec as $val ){
+                $col++;
+                #
+                # New max?
+                #
+                if( strlen($val) > @$max_col_widths[$col] ){
+                    $max_col_widths[$col] =  strlen($val);
+                }
+            }
+
+        }
+        $seperator=' | ';
+        #
+        # Total line length
+        #
+        $max_line_length=0;
+        foreach( $max_col_widths as $max_col_width ){
+            $max_line_length = $max_line_length+$max_col_width+strlen($seperator);
+        }
+        #
+        # Last char is a space, so ignore that
+        #
+        $max_line_length=$max_line_length-1;
+        #print_r($max_col_widths);
+        #
+        # Display
+        #
+        $headers_printed=0;
+        $width=30;
+
+        foreach( $results as $rec ){
+            if(!$headers_printed){
+                #
+                # Column headers
+                #
+                $num_cols=0;
+                $vals='';
+                echo "\n";
+
+                foreach ( $rec as $key => $val ){
+                    $num_cols++;
+                    $vals .= str_pad($key,$max_col_widths[$num_cols]).$seperator;
+                }
+                
+                $line = str_pad('-',$max_line_length,'-')."\n";
+                echo $line;
+                echo $vals."\n";
+                echo $line;
+                $headers_printed=1;
+            }
+            #
+            # Row data
+            #
+            $col=0;
+            foreach ( $rec as $val ){
+                $col++;
+                echo str_pad($val,$max_col_widths[$col]).$seperator;
+            }
+            echo "\n";
+        }
+        echo "\n";
+    }
+    #
     # Basic sql output html
     #
     function html_results( $cur, $fmt = 1, $link_col = 0, $link = '', $show_no_rows = 1 ){
@@ -149,7 +246,7 @@ class db{
         }
         $print_header = 1;
         $rows_fetched = 0;
-        while ( ( $rec = oci_fetch_object( $cur ) ) ){
+        while ( $rec = oci_fetch_object( $cur ) ){
             $rows_fetched++;
             if( $fmt ) u::p('<tr>');
             #
@@ -217,7 +314,7 @@ class db{
         # Get one row from the buffer at a time
         #
         p('<pre>');
-        while( ( $row_found = oci_execute( $cur ) ) and !$status ){
+        while( ( $row_found = oci_execute( $cur, OCI_DEFAULT ) ) and !$status ){
             p( $line_text );
         }
         p('</pre>');
@@ -246,7 +343,7 @@ class db{
     #
     function cpu_cores(){
         if( !isset( $this->cpu_cores ) ){
-          $cpu_cores_check = $this->single_rec("select value cpu_cores from v\$osstat where osstat_id = 0");
+          $cpu_cores_check = $this->single_rec("select value cpu_cores from v\$osstat where osstat_id=0");
           $this->cpu_cores = $cpu_cores_check->CPU_CORES;
         }
     
@@ -275,3 +372,4 @@ class db{
     #
 }
 ?>
+
