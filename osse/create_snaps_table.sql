@@ -1,16 +1,16 @@
 --
--- $Id: //Infrastructure/GitHub/Database/avo/osse/create_snaps_table.sql#1 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/osse/create_snaps_table.sql#5 $
 --
 -- T Dale 2012
 -- Save snaps table and job
 --
 
+
+
 --
 -- Active session snaps table
 --
---DROP TABLE dbamgr.session_snaps
---/
-CREATE TABLE dbamgr.session_snaps( 
+CREATE TABLE dbamgr.session_snaps(
   DBID                          NUMBER,
   INSTANCE_NUMBER               NUMBER,
   SAMPLE_TIME                   DATE,
@@ -55,4 +55,6 @@ TABLESPACE users
 CREATE INDEX dbamgr.session_snaps_idx1 ON dbamgr.session_snaps(sample_time) TABLESPACE users
 /
 CREATE TABLE dbamgr.session_snaps_hist TABLESPACE users AS SELECT * FROM dbamgr.session_snaps 
+/
+CREATE INDEX dbamgr.session_snaps_idx3 ON session_snaps( sample_time, wait_class,session_state, blocking_session,session_id, sql_id) 
 /
