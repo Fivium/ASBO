@@ -141,7 +141,7 @@ class u{
     #
     static function select_list($name,$values,$selected_val,$submit_on_change=1){
        if( $submit_on_change ) $submit_str=' onchange="submit();"'; else $submit_str='';
-       u::start_tag('select','name="'.$name.'"'.$submit_str);  
+       u::start_tag('select','id="'.$name.'" name="'.$name.'"'.$submit_str);  
        foreach( $values as $value_pair ){
            if( $value_pair[0]==$selected_val ) $select_str=' selected="selected"'; else $select_str='';
            u::tagged_item('option',$value_pair[1],'value="'.$value_pair[0].'"'.$select_str,1);
