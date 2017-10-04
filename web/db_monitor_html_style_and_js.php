@@ -148,4 +148,4 @@ function toggle_button(current_val){
     </script>
 </head>
 <?php
-u::start_tag('body', 'onload="start_monitoring();"');
+u::start_tag('body', 'onload="start_monitoring();document.getElementById(\'page\').selectedIndex = 0;"');
