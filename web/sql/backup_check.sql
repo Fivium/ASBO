@@ -11,7 +11,7 @@ AS
   , (end_time - start_time) * 3600 * 24     duration_mins
   , status full_backup_status
   , CASE
-      WHEN status = 'COMPLETED WITH WARNINGS' THEN 'WARNING'
+      WHEN status = 'COMPLETED WITH WARNINGS' OR status = 'RUNNING WITH WARNINGS' THEN 'WARNING'
       WHEN status NOT IN ('COMPLETED','RUNNING') THEN 'CRITICAL'
       ELSE 'OK'
     END bk_status
