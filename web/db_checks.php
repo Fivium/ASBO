@@ -83,6 +83,18 @@ if( $just_checks !== 1 ) include 'start.php';
         display( $cur, $db_obj, $any_crits );
         $crit_count += $any_crits;
     }
+    #
+    # Log trimming?
+    #
+    $using_table_trimming = $db_obj->single_rec("select 1 yes from dba_tables WHERE owner='DBAMGR' AND table_name='TABLE_HOUSEKEEPING' ");
+
+    if( isset( $using_table_trimming->YES ) ){
+        u::p('Using table trimming');
+        $sql = file_get_contents("./sql/table_trim_check.sql");
+        $cur = $db_obj->exec_sql( $sql );
+        display( $cur, $db_obj, $any_crits );
+        $crit_count += $any_crits;
+    }
     u::flush();
 
     if( u::request_val('suppress_ok') and $crit_count === 0 ){
