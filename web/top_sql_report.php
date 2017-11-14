@@ -1,10 +1,11 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/asbo/web/top_sql_report.php#2 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/top_sql_report.php#3 $
 #
 # Display some sql stats
 #
-include 'start.php';
+if( !isset( $just_report ) ) $just_report = 0;
+if( $just_report !== 1 ) include 'start.php';
 
 $db_obj->dbms_output_on();
 
@@ -45,5 +46,6 @@ $cur     = $db_obj->exec_sql( $sql, $binds );
 
 $db_obj->get_dbms_output();
 
-include 'end.php';
+if( $just_report !== 1 ) include 'end.php';
+
 ?>
