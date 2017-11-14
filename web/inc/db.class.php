@@ -123,7 +123,7 @@ class db{
             ## Might be something in buffer, so check first
             ##
             $this->get_dbms_output();
-            die( 'ORACLE ERROR : ' . $e->getMessage() );
+            $this->error( $e->getMessage() );
         }
     }
     #
@@ -133,10 +133,18 @@ class db{
         try{
             $rec = oci_fetch_object( $cur );
         }catch(Exception $e){
-            die( 'ORACLE ERROR : ' . $e->getMessage() );
+            $this->error( $e->getMessage() );
         }
         return $rec;
     }
+    function error($error_message){
+        if(ENVIROMENT==C_PRODUCTION_ENVIROMENT){
+            $error_message='ORACLE ERROR : '.$error_message;
+        }else{
+            $error_message='';
+        }
+        die( $error_message );
+    }    
     #
     # Results as test
     #
