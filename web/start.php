@@ -45,6 +45,8 @@ set_error_handler('handleError');
 # Constants
 #
 define('C_NONE','none');
+define('C_PRODUCTION_ENVIROMENT','PRODUCTION');
+define('C_DEVELOPMENT_ENVIROMENT','DEVELOPMENT');
 #
 # Widths
 #
@@ -104,6 +106,14 @@ if($db){
             }else{
                 $use_our_own_history_tables = FALSE;
             } 
+            #
+            # Enviroment
+            #
+            if( $db_obj->enviroment == C_DEVELOPMENT_ENVIROMENT ){
+                define( 'ENVIROMENT', C_DEVELOPMENT_ENVIROMENT );
+            }else{
+                define( 'ENVIROMENT', C_PRODUCTION_ENVIROMENT );
+            }            
         }
     }
 }else{
