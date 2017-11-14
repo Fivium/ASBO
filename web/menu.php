@@ -62,6 +62,13 @@ $values[]=array( $top_sql_report_url.'1', 'Top SQL Report' );
 $values[]=array('db_size.php'           , 'Database Size'  );
 $values[]=array('standby_details.php'   , 'Standby Details');
 $values[]=array('db_checks_all_dbs.php?html=1','Checks all DB');
+$values[]=array('unstable_sql.php?pct_stddev_of_mean=50','Unstable SQL');
+$values[]=array('plan_flipping_queries.php','Plan Flipping SQL');
+$values[]=array('run_sql.php[sql_file----idle_sessions&param1=1]', 'Sessions over 1 day idle');
+$values[]=array('run_sql.php[sql_file----unindexed_fk]','Unindexed foreign keys');
+$values[]=array('run_sql.php[sql_file----system_stats]','System Stats');
+$values[]=array('run_sql.php[sql_file----logfile_sizes]','Logfile sizes');
+$values[]=array('run_sql.php[sql_file----last_login_check]','Last application Login');
 
 if( u::request_val('full',0) ){
    $values[]=array('undo_monitor.php'            ,'Undo Monitor'   );
