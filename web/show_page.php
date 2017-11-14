@@ -1,6 +1,6 @@
 <?php
 #
-# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#7 $
+# $Id: //Infrastructure/GitHub/Database/asbo/web/show_page.php#9 $
 #
 $page = $_GET['page'];
 $page_name_end_pos = strpos($page,'.php');
@@ -13,6 +13,7 @@ $allowed_pages = array(
     'blocking_tree',
     'db_checks_all_dbs',
     'db_checks',
+    'db_monitor',    
     'db_size',
     'dbsync_log',
     'kill_session',
@@ -35,6 +36,7 @@ $allowed_pages = array(
     'top_sessions',
     'top_sql',
     'top_sql_report',
+    'top_sql_report_all_dbs',
     'unstable_sql'
 );
 if( in_array($page_name,$allowed_pages) ){
