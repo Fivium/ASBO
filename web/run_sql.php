@@ -22,7 +22,8 @@ $allowed_sql_files = array(
     'last_login_check',
     'logfile_sizes',
     'system_stats',
-    'unindexed_fk'
+    'unindexed_fk',
+    'idle_sessions'
 );
 
 if(in_array($sql_file,$allowed_sql_files)){
