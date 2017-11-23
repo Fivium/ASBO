@@ -13,12 +13,12 @@ class db{
     # Start and connect
     # 
     function __construct($user,$pw,$conn_str,$ignore_connect_error=0){
-
-        #$this->conn = oci_pconnect($user, $pw, $conn_str);
+        
         u::info("getting connection to $conn_str",1);
         
-        $this->conn = oci_connect($user, $pw, $conn_str);
-
+        #$this->conn = oci_connect($user, $pw, $conn_str);
+        $this->conn = oci_pconnect($user, $pw, $conn_str);
+        
         if (!$this->conn) {
             $e    = oci_error();
             $errm = htmlentities($e['message'], ENT_QUOTES);
