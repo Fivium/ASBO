@@ -1,5 +1,5 @@
 --
--- $Id: //Infrastructure/Database/scripts/oav/sql/backup_check.sql#2 $
+-- $Id: //Infrastructure/Database/scripts/oav/sql/backup_check.sql#3 $
 --
 WITH
   backup_details
@@ -20,7 +20,7 @@ AS
     v$rman_backup_job_details 
   WHERE
     input_type = 'DB FULL' AND
-    start_time > SYSDATE - 2
+    end_time > SYSDATE - 1
   
   UNION ALL
    
@@ -36,7 +36,7 @@ AS
        (  
             SELECT * FROM v$rman_backup_job_details WHERE
             input_type = 'DB FULL' AND
-            start_time > SYSDATE - 2
+            end_time > SYSDATE - 1
        )
 )
 select 
