@@ -58,6 +58,14 @@ foreach($db_lookup as $key0 => $db_detail){
             u::p('<span style="background-color:red;">CRITICAL</span>');
         }else{
             u::p("\n__START__$db\n");
+            #
+            # Use our own history tables?
+            #
+            if ( $db_detail->use_local_awr_tables ){
+                $use_our_own_history_tables = TRUE;
+            }else{
+                $use_our_own_history_tables = FALSE;
+            }            
             include 'top_sql_report.php';
         }
 
@@ -69,4 +77,3 @@ if( @$_GET['html'] ){
     u::p('</html>');
 }
 ?>
-
