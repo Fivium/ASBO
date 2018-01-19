@@ -39,16 +39,19 @@ AS
             end_time > SYSDATE - 1
        )
 )
-select 
-  bk_start
-, bk_end
-, full_backup_status
-, bk_status
-, backup_log
-, TO_CHAR(TRUNC(duration_mins/3600),'FM9900')       || 'hr '   ||
-  TO_CHAR(TRUNC(MOD(duration_mins,3600)/60),'FM00') || 'mins ' ||
-  TO_CHAR(MOD(duration_mins,60),'FM00')             || 'secs'  duration
-From  backup_details bd
+select * from 
+(
+  select 
+    bk_start
+  , bk_end
+  , full_backup_status
+  , bk_status
+  , backup_log
+  , TO_CHAR(TRUNC(duration_mins/3600),'FM9900')       || 'hr '   ||
+    TO_CHAR(TRUNC(MOD(duration_mins,3600)/60),'FM00') || 'mins ' ||
+    TO_CHAR(MOD(duration_mins,60),'FM00')             || 'secs'  duration
+  From  backup_details bd
+  order by bk_start DESC
+)
 WHERE
 ROWNUM < 2
-order by bk_start
