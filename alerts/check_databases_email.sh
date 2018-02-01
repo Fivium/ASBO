@@ -73,6 +73,6 @@ fi
 if [ ! -z "$SEND_EMAIL" ] || [ ! -z "$FORCE_SEND_EMAIL" ]
 then
     echo "Send email - Subject : $EMAIL_SUBJECT - Report file : $REPORT_FILENAME"
-    /usr/local/bin/mutt $EMAIL_TO -e "set content_type=text/html" -s "$EMAIL_SUBJECT" -c $CC1 -c $CC2 -c $CC3 < $REPORT_FILENAME
+    mutt $EMAIL_TO -e "set content_type=text/html" -s "$EMAIL_SUBJECT" -c $CC1 -c $CC2 -c $CC3 < $REPORT_FILENAME
     echo "Email Sent"
 fi
