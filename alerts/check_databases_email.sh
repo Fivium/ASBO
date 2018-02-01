@@ -2,7 +2,7 @@
 #
 # $Id: //Infrastructure/GitHub/Database/asbo/alerts/check_databases_email.sh#6 $
 #i
-DIR='/root/alerts/'
+DIR='/app/alerts/'
 REPORT_FILENAME="${DIR}/db_checks.html"
 EMAIL_SUBJECT='Databases Alerts'
 EMAIL_TAIL='+alerts_my_databases'
