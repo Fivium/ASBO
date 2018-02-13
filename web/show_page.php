@@ -51,7 +51,7 @@ if( in_array($page_name,$allowed_pages) ){
     $parsed_url = parse_url($page);
     print_r( $parsed_url );
     echo "\nPage wanted : ".$_SERVER['SERVER_NAME']."/oav/$page \n";
-    $queryfields = split('[;&]', $parsed_url['query']);
+    $queryfields = explode('[;&]', $parsed_url['query']);
     #
     # Parse in parm
     #
