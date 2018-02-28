@@ -13,7 +13,7 @@ $allowed_pages = array(
     'blocking_tree',
     'db_checks_all_dbs',
     'db_checks',
-    'db_monitor',    
+    'db_monitor',
     'db_size',
     'dbsync_log',
     'kill_session',
@@ -50,8 +50,8 @@ if( in_array($page_name,$allowed_pages) ){
     echo "<!-- \nParsed URL : \n";
     $parsed_url = parse_url($page);
     print_r( $parsed_url );
-    echo "\nPage wanted : ".$_SERVER['SERVER_NAME']."/oav/$page \n";
-    $queryfields = explode('[;&]', $parsed_url['query']);
+    echo "\nPage wanted : ".$_SERVER['SERVER_NAME']."/$page&db=".$_GET['db']." \n";
+    $queryfields = explode('&', $parsed_url['query']);
     #
     # Parse in parm
     #
@@ -65,3 +65,4 @@ if( in_array($page_name,$allowed_pages) ){
     include './'.$page_name.'.php';
 }
 ?>
+
