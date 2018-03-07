@@ -22,7 +22,7 @@ my $writing_report = 0;
 my $report_fh;
 my @report_filenames;
 my $msg;
-my $mail_host='mail_host';
+my $mail_host='mail_host_server';
 #
 # Get the reports in one file
 #
