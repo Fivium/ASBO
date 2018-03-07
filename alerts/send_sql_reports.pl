@@ -10,10 +10,10 @@ use Time::Seconds;
 
 my $yesterday = localtime() - ONE_DAY;
 my $yesterday_date_str = $yesterday->strftime('%Y_%m_%d');
-my $asbo_server='x.x.x.x';
+my $asbo_server='127.0.0.1';
 my $initial_db='any_db_from_db_lookup_conf_file';
 my $get_all_reports_url='http://'.$asbo_server.'/show_page.php?db='.$initial_db.'&page=top_sql_report_all_dbs.php%3Fstart%3D'.$yesterday_date_str.'__09%26end%3D'.$yesterday_date_str.'__17%26order_by_id%3D1';
-my $report_dir = '/home/oracle/email_top_sql_reports/reports';
+my $report_dir = '/app/alerts';
 my $all_reports_filename = 'sql_report_all.txt';
 my $all_reports_filename_with_path="$report_dir/$all_reports_filename";
 my $report_start_ind = '__START__';
