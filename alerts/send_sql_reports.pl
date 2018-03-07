@@ -22,6 +22,7 @@ my $writing_report = 0;
 my $report_fh;
 my @report_filenames;
 my $msg;
+my $mail_host='mail_host';
 #
 # Get the reports in one file
 #
@@ -67,4 +68,4 @@ while( my $line = <$fh>)  {
 close $fh;
 close $report_fh;
 
-$msg->send( );
+$msg->send('smtp', $mail_host);
