@@ -2,6 +2,12 @@
 #
 # $Id: //Infrastructure/GitHub/Database/asbo/alerts/check_databases_email.sh#6 $
 #i
+
+export MUTT_PORT=port_number
+export MUTT_FROM=sender
+export MUTT_SERVER=smtp_server
+
+
 DIR='/app/alerts/'
 REPORT_FILENAME="${DIR}/db_checks.html"
 EMAIL_SUBJECT='Databases Alerts'
