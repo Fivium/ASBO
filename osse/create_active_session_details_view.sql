@@ -1,5 +1,5 @@
 --
--- $Id: //Infrastructure/GitHub/Database/asbo/osse/create_active_session_details_view.sql#3 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/osse/create_active_session_details_view.sql#4 $
 --
 -- T Dale 2012
 --
@@ -24,6 +24,15 @@ SELECT
 ,   DECODE(s.ksusetim, 0,'WAITING','ON CPU')  session_state
 ,   CASE s.ksusetim WHEN 0 THEN ( SELECT wait_class FROM v$event_name WHERE event# = s.ksuseopc ) 
     ELSE NULL END wait_class 
+,   DECODE (
+      s.ksuseblocker
+    , 4294967295, TO_NUMBER (NULL)
+    , 4294967294, TO_NUMBER (NULL)
+    , 4294967293, TO_NUMBER (NULL)
+    , 4294967292, TO_NUMBER (NULL)
+    , 4294967291, TO_NUMBER (NULL)
+    , BITAND (s.ksuseblocker, 65535)
+    ) blocking_session
 FROM
     x$ksuse s
 WHERE
