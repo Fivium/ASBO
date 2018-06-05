@@ -1,6 +1,6 @@
 CREATE OR REPLACE PACKAGE BODY DBAMGR.snap
 --
--- $Id: //Infrastructure/GitHub/Database/asbo/osse/SNAP.pkb#6 $
+-- $Id: //Infrastructure/GitHub/Database/asbo/osse/SNAP.pkb#7 $
 --
 -- T Dale 2012
 -- Snapping for Oracle standard
@@ -45,7 +45,7 @@ AS
           , NULL
           , program
           , module
-          , NULL
+          , blocking_session
           , NULL
           , NULL
           , NULL
