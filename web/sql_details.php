@@ -45,6 +45,8 @@ if( $enterprise ){
     u::a('Monitor SQL Execution', "sql_monitor.php?db=$db&sql_id=$sql_id"        );
 }
 u::a('SQL Plan Management'  , "sql_plan_management.php?db=$db&sql_id=$sql_id");
+u::a('Create sql patch template','sql/sql_patch_from_sql_id.sql');
+u::a('Last execution details',"sql_display_cursor.php?db=$db&sql_id=$sql_id");
 
 p('');
 #
