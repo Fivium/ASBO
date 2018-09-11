@@ -97,7 +97,7 @@ if( $just_checks !== 1 ) include 'start.php';
     }
     u::flush();
 
-    $sql = file_get_contents("./sql/fra_size_check.sql");
+    $sql = file_get_contents("./sql/fra_space_check.sql");
     $cur = $db_obj->exec_sql( $sql );
     display( $cur, $db_obj, $any_crits );
     $crit_count += $any_crits;
