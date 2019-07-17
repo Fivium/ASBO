@@ -13,7 +13,7 @@ process_counts_calc
 AS(
   SELECT
     pc.*,
-    (current_process_count/max_process_count)*100 percentage_of_max
+    ROUND((current_process_count/max_process_count)*100) percentage_of_max
   FROM
     process_counts pc
 )
